@@ -1,7 +1,7 @@
 export const WIDTH = 1920;
 export const HEIGHT = 1080;
 
-const BG = '#eceef1';
+const BG = '#f5f6f8';
 const INK = '#111418';
 const MUTED = '#5b6470';
 const ACCENT = '#9cc9ee';

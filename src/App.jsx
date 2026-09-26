@@ -187,10 +187,6 @@ export default function App() {
   return (
     <main>
       <header>
-        <div>
-          <h1>Audio → Video</h1>
-          <p class="lede">Record a clip, give it a title, and export it as an MP4 with a title card. Everything happens in your browser.</p>
-        </div>
         <button class="btn primary" onClick={downloadAll} disabled={busy() || readyCount() === 0}>
           {zipping() ? 'Preparing…' : `Download all (${readyCount()})`}
         </button>
