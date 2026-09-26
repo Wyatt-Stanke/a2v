@@ -3,14 +3,14 @@ export const HEIGHT = 1080;
 
 const BG = '#ffffff';
 const INK = '#111418';
-const MUTED = '#5b6470';
+const MUTED = '#3d434c';
 const ACCENT = '#9cc9ee';
 const FONT = 'Roboto, "Helvetica Neue", Arial, sans-serif';
 
 export const loadFonts = () =>
   Promise.all([
     document.fonts.load(`700 120px Roboto`),
-    document.fonts.load(`400 56px Roboto`),
+    document.fonts.load(`400 72px Roboto`),
   ]).catch(() => {});
 
 const wrap = (ctx, text, maxWidth) => {
@@ -52,7 +52,7 @@ export const drawCard = (canvas, title, subtitle) => {
 
   const maxWidth = WIDTH - 320;
   const t = fit(ctx, title.trim() || 'Untitled', 700, 128, 56, maxWidth, 3);
-  const s = subtitle.trim() ? fit(ctx, subtitle.trim(), 400, 56, 32, maxWidth, 2) : null;
+  const s = subtitle.trim() ? fit(ctx, subtitle.trim(), 400, 72, 40, maxWidth, 2) : null;
 
   const tLine = t.size * 1.12;
   const sLine = s ? s.size * 1.3 : 0;
