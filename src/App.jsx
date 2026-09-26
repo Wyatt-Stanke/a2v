@@ -51,11 +51,15 @@ function CardPreview(props) {
   return <canvas ref={canvas} class="preview" width={WIDTH} height={HEIGHT} />;
 }
 
+const WARMUP_MS = 500;
+
 function Recorder(props) {
   let recorder = null;
   let stream = null;
   const [elapsed, setElapsed] = createSignal(0);
+  const [warming, setWarming] = createSignal(false);
   let timer;
+  let warmup;
 
   const start = async () => {
     try {
@@ -72,19 +76,28 @@ function Recorder(props) {
       clearInterval(timer);
       props.onRecorded(new Blob(chunks, { type: recorder.mimeType }));
     };
-    recorder.start();
-    const t0 = Date.now();
+    // Let the mic hardware settle before capturing, so the clip doesn't start with a glitch.
     setElapsed(0);
-    timer = setInterval(() => setElapsed((Date.now() - t0) / 1000), 200);
+    setWarming(true);
     props.onRecording(true);
+    warmup = setTimeout(() => {
+      setWarming(false);
+      recorder.start();
+      const t0 = Date.now();
+      timer = setInterval(() => setElapsed((Date.now() - t0) / 1000), 200);
+    }, WARMUP_MS);
   };
 
   const stop = () => {
-    recorder?.state === 'recording' && recorder.stop();
+    clearTimeout(warmup);
+    setWarming(false);
+    if (recorder?.state === 'recording') recorder.stop();
+    else stream?.getTracks().forEach((t) => t.stop());
     props.onRecording(false);
   };
 
   onCleanup(() => {
+    clearTimeout(warmup);
     clearInterval(timer);
     stream?.getTracks().forEach((t) => t.stop());
   });
@@ -107,8 +120,9 @@ function Recorder(props) {
           </>
         }
       >
-        <div class="live">
-          <span class="dot pulse" /> Recording {fmt(elapsed())}
+        <div class="live" classList={{ warming: warming() }}>
+          <span class="dot" classList={{ pulse: !warming() }} />
+          {warming() ? 'Starting…' : `Recording ${fmt(elapsed())}`}
         </div>
         <button class="btn" onClick={stop}>
           <span class="square" /> Stop

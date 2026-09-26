@@ -68,6 +68,8 @@ input.title { font-weight: 600; }
 
 .recorder { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; min-height: 36px; }
 .recorder audio { height: 36px; flex: 1 1 220px; min-width: 0; }
+.live.warming { color: var(--muted); }
+.live.warming .dot { background: var(--muted); }
 .live { display: flex; align-items: center; gap: 8px; color: var(--danger); font-weight: 500; font-variant-numeric: tabular-nums; }
 
 .side { display: flex; align-items: center; gap: 12px; }
