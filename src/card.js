@@ -1,16 +1,16 @@
 export const WIDTH = 1920;
 export const HEIGHT = 1080;
 
-const BG = '#f5f6f8';
+const BG = '#ffffff';
 const INK = '#111418';
 const MUTED = '#5b6470';
 const ACCENT = '#9cc9ee';
-const FONT = 'Inter, "Helvetica Neue", Arial, sans-serif';
+const FONT = 'Roboto, "Helvetica Neue", Arial, sans-serif';
 
 export const loadFonts = () =>
   Promise.all([
-    document.fonts.load(`700 120px Inter`),
-    document.fonts.load(`400 56px Inter`),
+    document.fonts.load(`700 120px Roboto`),
+    document.fonts.load(`400 56px Roboto`),
   ]).catch(() => {});
 
 const wrap = (ctx, text, maxWidth) => {
@@ -46,12 +46,9 @@ export const drawCard = (canvas, title, subtitle) => {
   ctx.fillStyle = BG;
   ctx.fillRect(0, 0, WIDTH, HEIGHT);
 
-  // Accent stripes: two thin parallel lines near the bottom edge.
+  // Accent stripe: a thin line near the bottom edge.
   ctx.fillStyle = ACCENT;
   ctx.fillRect(0, HEIGHT - 132, WIDTH, 4);
-  ctx.globalAlpha = 0.55;
-  ctx.fillRect(0, HEIGHT - 118, WIDTH, 2);
-  ctx.globalAlpha = 1;
 
   const maxWidth = WIDTH - 320;
   const t = fit(ctx, title.trim() || 'Untitled', 700, 128, 56, maxWidth, 3);

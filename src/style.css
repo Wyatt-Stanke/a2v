@@ -16,7 +16,7 @@ body {
   margin: 0;
   background: var(--bg);
   color: var(--ink);
-  font: 15px/1.5 Inter, system-ui, -apple-system, sans-serif;
+  font: 15px/1.5 Roboto, system-ui, -apple-system, sans-serif;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -64,7 +64,7 @@ input {
   transition: border-color .15s, background .15s;
 }
 input:focus { border-color: var(--accent); background: var(--surface); }
-input.title { font-weight: 600; }
+input.title { font-weight: 500; }
 
 .recorder { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; min-height: 36px; }
 .recorder audio { height: 36px; flex: 1 1 220px; min-width: 0; }
